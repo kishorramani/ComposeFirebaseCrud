@@ -11,9 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavArgs
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.google.firebase.FirebaseApp
 import com.kishorramani.composefirebasecrud.ui.theme.ComposeFirebaseCRUDTheme
 
@@ -40,10 +43,30 @@ fun ToDoApp(modifier: Modifier = Modifier) {
         startDestination = "display"
     ) {
         composable("display") {
-            DisplayToDoScreen(navController)
+            DisplayToDoScreen(navHostController = navController)
         }
         composable("add") {
-            AddToDoScreen(navController)
+            AddToDoScreen(navHostController = navController)
+        }
+        composable(
+            route = "edit/{id}/{title}/{description}/{isDone}",
+            arguments = listOf(
+                navArgument("id") { type = NavType.StringType },
+                navArgument("title") { type = NavType.StringType },
+                navArgument("description") { type = NavType.StringType },
+                navArgument("isDone") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+            val args = backStackEntry.arguments!!
+            EditToDoScreen(
+                navHostController = navController,
+                ToDo(
+                    id = args.getString("id") ?: "",
+                    title = args.getString("title") ?: "",
+                    description = args.getString("description") ?: "",
+                    isDone = args.getInt("isDone") ?: 0,
+                )
+            )
         }
     }
 }

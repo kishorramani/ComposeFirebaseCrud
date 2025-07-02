@@ -12,12 +12,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,6 +37,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageShader
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -88,7 +91,7 @@ fun DisplayToDoScreen(navHostController: NavHostController) {
                             .padding(horizontal = 12.dp, vertical = 8.dp)
                             .fillMaxWidth()
                             .clickable {
-
+                                navHostController.navigate("edit/${toDo.id}/${toDo.title}/${toDo.description}/${toDo.isDone}")
                             },
                         elevation = CardDefaults.cardElevation(4.dp),
                         colors = CardDefaults.cardColors(
@@ -116,7 +119,8 @@ fun DisplayToDoScreen(navHostController: NavHostController) {
                                             width = 1.dp,
                                             color = Color(0xFF000000),
                                             shape = RoundedCornerShape(8.dp)
-                                        ).padding(16.dp),
+                                        )
+                                        .padding(16.dp),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Text(
@@ -129,6 +133,18 @@ fun DisplayToDoScreen(navHostController: NavHostController) {
                                 }
                             }
                             //Delete icon
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Delete toDo",
+                                tint = Color.Red,
+                                modifier = Modifier
+                                    .align(Alignment.TopEnd)
+                                    .padding(8.dp)
+                                    .size(24.dp)
+                                    .clickable {
+                                        ToDoRepository.deleteTodo(toDo.id)
+                                    }
+                            )
                         }
                     }
                 }
