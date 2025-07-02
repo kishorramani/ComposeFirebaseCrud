@@ -25,6 +25,35 @@ Create, Read, Update, and Delete ToDo items in real time.
 
 ---
 
+### 🔧 Setup Instructions
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/kishorramani/ComposeFirebaseCrud.git
+   ```
+
+2. **Open the project in Android Studio**
+
+3. **Add `google-services.json`**
+
+   * Go to [Firebase Console](https://console.firebase.google.com/)
+   * Create or use an existing Firebase project
+   * Register your Android app with the package name used in this project
+   * Download the `google-services.json` file
+   * Place it in the `app/` directory of the project
+
+4. **Build and run the app** on an emulator or physical device
+
+---
+
+### 📌 Important
+
+> ⚠️ This project **will not build** without a valid `google-services.json` file.
+> Firebase Realtime Database requires authentication credentials linked to your own Firebase project.
+
+---
+
 ## 🤝 Contributing
 
 - ⭐ If you find it helpful, please **star** the repo!  
